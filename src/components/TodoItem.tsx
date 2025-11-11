@@ -4,7 +4,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Trash2, GripVertical } from "lucide-react";
 import type { TodoItemProps } from "../types/todo";
 
-export const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete, isDragging }) => {
+export const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   const {
     attributes,
     listeners,

@@ -15,6 +15,7 @@ import {
 } from "@dnd-kit/sortable";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import { TodoItem } from "./components/TodoItem";
 import { useTodoOperations } from "./hooks/useTodoOperations";
 import type { Todo } from "./types/todo";
@@ -23,6 +24,7 @@ import "./App.css";
 const client = generateClient<Schema>();
 
 function App() {
+  const { signOut, user } = useAuthenticator();
   const [todos, setTodos] = useState<Array<Todo>>([]);
 
   useEffect(() => {
@@ -68,8 +70,11 @@ function App() {
 
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={handleCreateTodo}>+ new</button>
+      <h1>{user?.signInDetails?.loginId}'s todos</h1>
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+        <button onClick={handleCreateTodo}>+ new</button>
+        <button onClick={signOut}>Sign out</button>
+      </div>
       
       <DndContext
         sensors={sensors}
